@@ -6,7 +6,7 @@ PRs welcome!
 
 #### BlockTheSpot
 
-Installer for [BlockTheSpot](https://github.com/mrpond/BlockTheSpot/)
+A PowerShell script to install [BlockTheSpot](https://github.com/mrpond/BlockTheSpot/)
 
 ```sh
 iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 -useb | iex
@@ -14,10 +14,18 @@ iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 -useb | iex
 
 #### randstr
 
-A small deno script to create random strings
+A Deno script to create random strings
 
 ```sh
 deno run https://tools.maximousblk.now.sh/randstr.ts
+```
+
+#### countingstars
+
+A Deno script to get the total number of stars a GitHub user has
+
+```sh
+deno run -A https://tools.maximousblk.now.sh/countingstars.ts <username>
 ```
 
 ## License
