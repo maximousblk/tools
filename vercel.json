@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/.github/README.md"
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+}
