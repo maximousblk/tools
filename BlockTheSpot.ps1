@@ -117,4 +117,4 @@ Write-Host 'Patching Complete!'`n
 # Launch Spotify
 Write-Host 'Starting Spotify...'`n
 Start-Process -WorkingDirectory $SpotifyDirectory -FilePath $SpotifyExecutable
-Write-Host 'Done.'
+Write-Host 'Done.'`n
