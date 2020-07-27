@@ -28,6 +28,14 @@ A Deno script to get the total number of stars a GitHub user has
 deno run -A https://tools.maximousblk.now.sh/countingstars.ts <username>
 ```
 
+#### archiverepo
+
+A Deno script to save a GitHub repository to [Internet Archive](https://archive.org/)
+
+```sh
+deno run -A https://tools.maximousblk.now.sh/archiverepo.ts <username>/<reponame>
+```
+
 ## License
 
 All the scripts in this repo are distributed under [The MIT License](LICENSE)
