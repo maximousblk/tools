@@ -9,7 +9,7 @@ PRs welcome!
 Installer for [BlockTheSpot](https://github.com/mrpond/BlockTheSpot/)
 
 ```sh
-iwr https://denopkg.com/maximousblk/tools/BlockTheSpot.ps1 -useb | iex
+iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 -useb | iex
 ```
 
 #### randstr
@@ -17,7 +17,7 @@ iwr https://denopkg.com/maximousblk/tools/BlockTheSpot.ps1 -useb | iex
 A small deno script to create random strings
 
 ```sh
-deno run https://denopkg.com/maximousblk/tools/randstr.ts
+deno run https://tools.maximousblk.now.sh/randstr.ts
 ```
 
 ## License
