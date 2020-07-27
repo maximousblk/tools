@@ -26,7 +26,7 @@ if (Get-AppxPackage -Name SpotifyAB.SpotifyMusic) {
     }
 }
 
-# Check is Win32 version is installed
+# Check if Win32 version is installed
 if (-not $spotifyInstalled) {
     Write-Host 'Spotify installation was not detected.'`n
     # Ask user if they want to install Win32 version
