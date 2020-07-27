@@ -36,6 +36,14 @@ A Deno script to save a GitHub repository to [Internet Archive](https://archive.
 deno run -A https://tools.maximousblk.now.sh/archiverepo.ts <username>/<reponame>
 ```
 
+#### githubstatus
+
+A Deno script to check current status of GitHub.
+
+```sh
+deno run -A https://tools.maximousblk.now.sh/githubstatus.ts
+```
+
 ## License
 
 All the scripts in this repo are distributed under [The MIT License](LICENSE)
