@@ -9,7 +9,7 @@ This is the list of the tools and Quick Start actions
 A PowerShell script to install [BlockTheSpot](https://github.com/mrpond/BlockTheSpot/)
 
 ```bash
-iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 -useb | iex
+iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 | iex
 ```
 
 [docs](/BlockTheSpot)
