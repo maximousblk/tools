@@ -1,34 +1,34 @@
-# Setup script
-$PSDefaultParameterValues['Stop-Process:ErrorAction'] = 'SilentlyContinue' # Ignore errors from `Stop-Process`
+# Ignore errors from `Stop-Process`
+$PSDefaultParameterValues['Stop-Process:ErrorAction'] = 'SilentlyContinue'
 
+# Setup script
 $SpotifyDirectory = "$env:APPDATA\Spotify"
 $SpotifyExecutable = "$SpotifyDirectory\Spotify.exe"
 $spotifyInstalled = (Test-Path -LiteralPath $SpotifyExecutable)
 
 # Stop Spotify
-Write-Host `n'Stopping Spotify...'`n
+Write-Host `n'Stopping Spotify...'`n -ForegroundColor Yellow
 Stop-Process -Name Spotify
 Stop-Process -Name SpotifyWebHelper
 
 # Check if Microsoft Store version is installed
 if (Get-AppxPackage -Name SpotifyAB.SpotifyMusic) {
-    Write-Host 'The Microsoft Store version of Spotify has been detected which is not supported.'`n
+    Write-Host 'The Microsoft Store version of Spotify has been detected which is not supported.'`n -ForegroundColor Red
     # Ask user if they want to uninstall Microsoft Store version
     $ch = Read-Host -Prompt "Uninstall Spotify Windows Store edition? (y/N) "
     if ($ch -eq 'y') {
-        Write-Host 'Uninstalling Spotify.'`n
+        Write-Host 'Uninstalling Spotify...'`n
         Get-AppxPackage -Name SpotifyAB.SpotifyMusic | Remove-AppxPackage
     }
     else {
         Write-Host 'Exiting...'`n
-        Pause
         exit
     }
 }
 
 # Check if Win32 version is installed
 if (-not $spotifyInstalled) {
-    Write-Host 'Spotify installation was not detected.'`n
+    Write-Host 'Spotify installation was not detected.'`n -ForegroundColor Red
     # Ask user if they want to install Win32 version
     $ch = Read-Host -Prompt "Install Spotify? (y/N) "
     if ($ch -eq 'y') {
@@ -43,13 +43,12 @@ if (-not $spotifyInstalled) {
         }
         catch {
             Write-Output $_
-            Pause
             exit
         }
         mkdir $SpotifyDirectory >$null 2>&1
         Write-Host 'Installing Spotify...'`n
         Start-Process -FilePath "$PWD\SpotifyFullSetup.exe"
-        while ($null -eq (Get-Process -name Spotify -ErrorAction SilentlyContinue)) {
+        while ((Get-Process -name Spotify -ErrorAction SilentlyContinue) -eq $null) {
             #waiting until installation complete
         }
         Write-Host 'Stopping Spotify...'`n
@@ -60,9 +59,25 @@ if (-not $spotifyInstalled) {
     }
     else {
         Write-Host 'Exiting...'`n
-        Pause
         exit
     }
+}
+
+# Uninstall patch if user wants
+if ($rm) {
+    $ch = Read-Host -Prompt "Remove BlockTheSpot? (y/N)"
+    if ($ch -eq 'y') {
+        Write-Host `n'Removing patch...'`n
+        Remove-Item -LiteralPath $SpotifyDirectory\chrome_elf.dll >$null 2>&1
+        Move-Item $SpotifyDirectory\chrome_elf.dll.bak $SpotifyDirectory\chrome_elf.dll >$null 2>&1
+        Write-Host 'Patch removed'`n -ForegroundColor Green
+        Write-Host 'Starting Spotify...'`n
+        Start-Process -WorkingDirectory $SpotifyDirectory -FilePath $SpotifyExecutable
+        Write-Host 'Done.'`n
+    }
+    $rm=$false
+    Write-Host 'Exiting...'`n
+    exit
 }
 
 # Setup environment
@@ -75,11 +90,10 @@ try {
 }
 catch {
     Write-Output $_
-    Pause
     exit
 }
 
-# Download patch
+# Download patch files
 Write-Host 'Downloading latest patch...'`n
 $webClient = New-Object -TypeName System.Net.WebClient
 try {
@@ -95,10 +109,12 @@ catch {
     Start-Sleep
 }
 
+# Extract patch files
+Write-Host 'Extracting latest patch...'`n
 Expand-Archive -Force -LiteralPath "$PWD\chrome_elf.zip" -DestinationPath $PWD
 Remove-Item -LiteralPath "$PWD\chrome_elf.zip"
 
-# Create a backup of patch
+# Create a backup of original file
 if (!(test-path $SpotifyDirectory/chrome_elf.dll.bak)) {
     Move-Item $SpotifyDirectory\chrome_elf.dll $SpotifyDirectory\chrome_elf.dll.bak >$null 2>&1
 }
@@ -112,9 +128,13 @@ Copy-Item -LiteralPath $patchFiles -Destination "$SpotifyDirectory"
 $tempDirectory = $PWD
 Pop-Location
 Remove-Item -Recurse -LiteralPath $tempDirectory
-Write-Host 'Patching Complete!'`n
+Write-Host 'Patching Complete!'`n -ForegroundColor Green
 
 # Launch Spotify
 Write-Host 'Starting Spotify...'`n
 Start-Process -WorkingDirectory $SpotifyDirectory -FilePath $SpotifyExecutable
+
+# Exit
 Write-Host 'Done.'`n
+Write-Host 'Exiting...'`n
+exit

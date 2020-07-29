@@ -8,7 +8,7 @@ function sleep(delay: number) {
 
 function help() {
     console.log(`
-Usage: archivegh <user>/<repo> [options]
+Usage: archiverepo <user>/<repo> [options]
 
 Options:
 \t-h, --help           This help menu
@@ -16,8 +16,8 @@ Options:
 \t-d <seconds>         Delay between each request in seconds (default: 2 sec)
 \t-b <branch>          Branch name which you have to archive (default: master)
 
-Examples:
-\tarchivegh octocat/Hello-World -v -d 5`);
+Example:
+\tarchiverepo octocat/Hello-World -v -d 5`);
 }
 
 if (args.h || args.help) {
