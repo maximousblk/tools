@@ -137,4 +137,3 @@ Start-Process -WorkingDirectory $SpotifyDirectory -FilePath $SpotifyExecutable
 # Exit
 Write-Host 'Done.'`n
 Write-Host 'Exiting...'`n
-exit
