@@ -14,6 +14,16 @@ iwr https://tools.maximousblk.now.sh/BlockTheSpot.ps1 | iex
 
 [docs](/BlockTheSpot)
 
+### ipfsadd
+
+one liner to upload files to [IPFS](https://ipfs.io/)
+
+```bash
+curl -fsSL https://tools.maximousblk.now.sh/ipfsadd.sh | bash -s -- [...FILES]
+```
+
+[docs](/ipfsadd)
+
 ### randstr
 
 A Deno script to create random strings
